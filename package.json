@@ -1,5 +1,5 @@
 {
-  "name": "ash_web",
+  "name": "react_redux_base",
   "version": "0.1.0",
   "description": "",
   "engines": {
@@ -26,7 +26,7 @@
     "test:watch": "npm run test -- --watch",
     "open:cover": "npm run test:cover && open coverage/index.html"
   },
-  "author": "PIS Grupo 9 2016",
+  "author": "Bernabe Gonzalez",
   "license": "MIT",
   "dependencies": {
     "isomorphic-fetch": "2.2.1",
