@@ -3,12 +3,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import { loadUsers } from './actions/userActions';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { useScroll } from 'react-router-scroll';
 
 const store = configureStore();
 
@@ -19,6 +20,6 @@ store.dispatch(loadUsers());
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <Router history={history} routes={routes} render={applyRouterMiddleware(useScroll())}/>
   </Provider>, document.getElementById('app')
 );
