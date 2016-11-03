@@ -1,3 +1,7 @@
 export default {
-  users: []
+  users: [],
+  session: {
+    loginSuccess: false,
+    loginError: ''
+  }
 };
