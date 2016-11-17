@@ -37,6 +37,15 @@ export const deleteSession = (key = constant.SECCION_STORAGE) => {
   }
 };
 
+export const checkAuth = (nextState, replace) => {
+  if (!isLogged()) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
+};
+
 export const isLogged = () => {
   let currentSession = loadSession();
   return (currentSession && currentSession.email && currentSession.token);

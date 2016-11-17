@@ -22,7 +22,7 @@ export const logoutSuccess = () => {
 
 export const login = (user) => {
   return (dispatch) => {
-    sessionApi.login(user).then(response => {
+    return sessionApi.login(user).then(response => {
       session.saveSession(response);
       dispatch(loginSuccess(response));
     }).catch(err => {
@@ -35,7 +35,7 @@ export const logout = (history) => {
   return (dispatch) => {
     session.deleteSession();
     history.push('/login');
-    sessionApi.logout().then(() => {
+    return sessionApi.logout().then(() => {
       dispatch(logoutSuccess());
     }).catch(err => {
       throw (err);
