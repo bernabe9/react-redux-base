@@ -22,7 +22,7 @@ export const logoutSuccess = () => {
 
 export const login = (user) => {
   return (dispatch) => {
-    return sessionApi.login(user).then(response => {
+    return sessionApi.login({ user }).then(response => {
       session.saveSession(response);
       dispatch(loginSuccess(response));
     }).catch(err => {
@@ -31,11 +31,10 @@ export const login = (user) => {
   };
 };
 
-export const logout = (history) => {
+export const logout = () => {
   return (dispatch) => {
-    session.deleteSession();
-    history.push('/login');
     return sessionApi.logout().then(() => {
+      session.deleteSession();
       dispatch(logoutSuccess());
     }).catch(err => {
       throw (err);

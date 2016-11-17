@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "isomorphic-fetch": "2.2.1",
+    "localforage": "1.4.3",
     "object-assign": "4.1.0",
     "react": "15.3.2",
     "react-dom": "15.3.2",
@@ -37,6 +38,7 @@
     "react-router-redux": "4.0.6",
     "react-router-scroll": "0.4.1",
     "redux": "3.6.0",
+    "redux-form": "6.2.0",
     "redux-thunk": "2.1.0"
   },
   "devDependencies": {

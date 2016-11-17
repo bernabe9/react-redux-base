@@ -14,12 +14,15 @@ const handleErrors = (response) =>
       return;
     }
 
-    if (response.status === 401 && session.isLogged()) {
-      session.deleteSession();
-      browserHistory.replace('/login');
-      reject({ message: 'Unauthorized' });
-      return;
-    }
+    session.isLogged()
+    .catch(() => {
+      if (response.status === 401) {
+        session.deleteSession();
+        browserHistory.replace('/login');
+        reject({ message: 'Unauthorized' });
+        return;
+      }
+    })
 
     response.json()
       .then(json => {
@@ -49,9 +52,17 @@ class Api {
     });
   }
 
-  addTokenHeader() {
-    const currentSession = session.loadSession();
-    return session.isLogged() ? { 'X-USER-TOKEN': currentSession.token } : {};
+  // addTokenHeader() {
+  //   const currentSession = session.loadSession();
+  //   return session.isLogged() ? { 'X-USER-TOKEN': currentSession.token } : {};
+  // }
+
+  addTokenHeader(requestData) {
+    return session.isLogged()
+    .then(token => {
+      requestData.headers['X-USER-TOKEN'] = token;
+      return requestData;
+    }).catch(() => requestData)
   }
 
   get(uri) {
@@ -74,8 +85,10 @@ class Api {
       },
       body: JSON.stringify(data)
     };
-    requestData.headers = Object.assign({}, requestData.headers, this.addTokenHeader());
-    return this.performRequest(uri, requestData);
+    return this.addTokenHeader(requestData)
+    .then(data => {
+      return this.performRequest(uri, data);
+    })
   }
 
   delete(uri, data) {
@@ -87,8 +100,10 @@ class Api {
       },
       body: JSON.stringify(data)
     };
-    requestData.headers = Object.assign({}, requestData.headers, this.addTokenHeader());
-    return this.performRequest(uri, requestData);
+    return this.addTokenHeader(requestData)
+    .then(data => {
+      return this.performRequest(uri, data);
+    })
   }
 
   put(uri, data) {

@@ -47,7 +47,8 @@ export default {
       { test: /\.(jpe?g|png|gif)$/i, loader: 'file?name=[name].[ext]' },
       { test: /\.ico$/, loader: 'file?name=[name].[ext]' },
       { test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'postcss', 'sass?sourceMap'] }
-    ]
+    ],
+    noParse: [new RegExp('node_modules/localforage/dist/localforage.js')]
   },
   postcss: () => [autoprefixer]
 };
