@@ -14,11 +14,11 @@ const handleErrors = (response) =>
       return;
     }
 
-    if (response.status === 401) {
-      if (session.isLogged()) {
-        session.deleteSession();
-        browserHistory.replace('/login');
-      }
+    if (response.status === 401 && session.isLogged()) {
+      session.deleteSession();
+      browserHistory.replace('/login');
+      reject({ message: 'Unauthorized' });
+      return;
     }
 
     response.json()
