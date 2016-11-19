@@ -11,8 +11,11 @@ class LogoutButton extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    nextProps.success && browserHistory.replace('/login');
+  }
+
   onClick() {
-    browserHistory.replace('/login');
     const { logout } = this.props.actions;
     logout();
   }
@@ -32,7 +35,7 @@ LogoutButton.propTypes = {
   actions: object.isRequired
 };
 
-const mapState = () => ({});
+const mapState = (state) => ({ success: state.session.logoutSuccess });
 
 const mapDispatch = (dispatch) => {
   return {

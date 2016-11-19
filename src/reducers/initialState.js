@@ -1,6 +1,7 @@
 export default {
   session: {
     loginSuccess: false,
-    loginError: ''
+    loginError: '',
+    logoutSuccess: false
   }
 };

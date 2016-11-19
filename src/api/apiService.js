@@ -22,7 +22,7 @@ const handleErrors = (response) =>
         reject({ message: 'Unauthorized' });
         return;
       }
-    })
+    });
 
     response.json()
       .then(json => {
@@ -52,17 +52,12 @@ class Api {
     });
   }
 
-  // addTokenHeader() {
-  //   const currentSession = session.loadSession();
-  //   return session.isLogged() ? { 'X-USER-TOKEN': currentSession.token } : {};
-  // }
-
   addTokenHeader(requestData) {
     return session.isLogged()
     .then(token => {
       requestData.headers['X-USER-TOKEN'] = token;
       return requestData;
-    }).catch(() => requestData)
+    }).catch(() => requestData);
   }
 
   get(uri) {
@@ -72,8 +67,10 @@ class Api {
         'Accept': 'application/json'
       }
     };
-    requestData.headers = Object.assign({}, requestData.headers, this.addTokenHeader());
-    return this.performRequest(uri, requestData);
+    return this.addTokenHeader(requestData)
+    .then(data => {
+      return this.performRequest(uri, data);
+    });
   }
 
   post(uri, data) {
@@ -88,7 +85,7 @@ class Api {
     return this.addTokenHeader(requestData)
     .then(data => {
       return this.performRequest(uri, data);
-    })
+    });
   }
 
   delete(uri, data) {
@@ -103,7 +100,7 @@ class Api {
     return this.addTokenHeader(requestData)
     .then(data => {
       return this.performRequest(uri, data);
-    })
+    });
   }
 
   put(uri, data) {
@@ -115,8 +112,10 @@ class Api {
       },
       body: JSON.stringify(data)
     };
-    requestData.headers = Object.assign({}, requestData.headers, this.addTokenHeader());
-    return this.performRequest(uri, requestData);
+    return this.addTokenHeader(requestData)
+    .then(data => {
+      return this.performRequest(uri, data);
+    });
   }
 
   patch(uri, data) {
@@ -128,8 +127,10 @@ class Api {
       },
       body: JSON.stringify(data)
     };
-    requestData.headers = Object.assign({}, requestData.headers, this.addTokenHeader());
-    return this.performRequest(uri, requestData);
+    return this.addTokenHeader(requestData)
+    .then(data => {
+      return this.performRequest(uri, data);
+    });
   }
 }
 

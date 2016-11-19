@@ -19,6 +19,6 @@ const LoginForm = ({ handleSubmit }) => {
 
 const { func } = PropTypes;
 
-LoginForm.propTypes = { onSubmit: func.isRequired };
+LoginForm.propTypes = { handleSubmit: func.isRequired };
 
 export default reduxForm({ form: 'login' })(LoginForm);
