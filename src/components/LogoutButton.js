@@ -3,41 +3,39 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import * as sessionActions from '../actions/sessionActions';
-import LoginForm from '../components/LoginForm';
 
-class LoginPage extends Component {
+class LogoutButton extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.success && browserHistory.replace('/');
+    nextProps.success && browserHistory.replace('/login');
   }
 
-  onSubmit(user) {
-    const { login } = this.props.actions;
-    login(user);
+  onClick() {
+    const { logout } = this.props.actions;
+    logout();
   }
 
   render() {
     return (
-      <div>
-        <p>LOGIN</p>
-        <LoginForm onSubmit={this.onSubmit}/>
-      </div>
+      <button onClick={this.onClick}>
+        LOGOUT
+      </button>
     );
   }
 }
 
 const { object } = PropTypes;
 
-LoginPage.propTypes = {
+LogoutButton.propTypes = {
   actions: object.isRequired
 };
 
-const mapState = (state) => ({ success: state.session.loginSuccess });
+const mapState = (state) => ({ success: state.session.logoutSuccess });
 
 const mapDispatch = (dispatch) => {
   return {
@@ -45,4 +43,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(LoginPage);
+export default connect(mapState, mapDispatch)(LogoutButton);

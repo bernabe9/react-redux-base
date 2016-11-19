@@ -1,52 +1,40 @@
 import * as constant from '../constants/apiConstants';
-import loginPatch from '../utils/loginPatch';
+import * as localForage from 'localforage';
 
 export const loadSession = () => {
-  try {
-    const serializedState = localStorage.getItem(constant.SECCION_STORAGE);
-    if (serializedState === null) {
-      localStorage.setItem('stub', 'stub');
-      localStorage.removeItem('stub');
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (e) {
-    let session = new loginPatch();
-    return session.getSession();
-  }
+  return localForage.getItem(constant.USER_SESSION)
+  .then(value => value);
 };
 
-export const saveSession = (token) => {
-  try {
-    const serializedState = JSON.stringify(token);
-    localStorage.setItem(constant.SECCION_STORAGE, serializedState);
-  } catch (e) {
-    let session = new loginPatch();
-    session.setSession(token.id, token.token, token.email);
-  }
+export const saveSession = (userData) => {
+  return localForage.setItem(constant.USER_SESSION, userData);
 };
 
-export const deleteSession = (key = constant.SECCION_STORAGE) => {
-  try {
-    localStorage.removeItem(key);
-    localStorage.setItem('stub', 'stub');
-    localStorage.removeItem('stub');
-  } catch (e) {
-    let session = new loginPatch();
-    session.deleteSession();
-  }
+export const deleteSession = () => {
+  return localForage.removeItem(constant.USER_SESSION);
 };
 
-export const checkAuth = (nextState, replace) => {
-  if (!isLogged()) {
+export const checkAuth = (nextState, replace, next) => {
+  isLogged()
+  .then(() => next())
+  .catch(() => {
     replace({
       pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
     });
-  }
+    next();
+  });
 };
 
 export const isLogged = () => {
-  let currentSession = loadSession();
-  return (currentSession && currentSession.email && currentSession.token);
+  return new Promise((resolve, reject) => {
+    loadSession()
+    .then((currentSession) => {
+      if (currentSession && currentSession.email && currentSession.token) {
+        resolve(currentSession.token);
+      } else {
+        reject('nope');
+      }
+    });
+  });
 };
