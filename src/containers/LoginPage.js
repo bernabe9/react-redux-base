@@ -8,24 +8,19 @@ import LoginForm from '../components/LoginForm';
 class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     nextProps.success && browserHistory.replace('/');
   }
 
-  onSubmit(user) {
-    const { login } = this.props.actions;
-    login(user);
-  }
-
   render() {
+    const { login } = this.props.actions;
+
     return (
       <div>
         <p>LOGIN</p>
-        <LoginForm onSubmit={this.onSubmit}/>
+        <LoginForm onSubmit={login}/>
       </div>
     );
   }
@@ -37,7 +32,9 @@ LoginPage.propTypes = {
   actions: object.isRequired
 };
 
-const mapState = (state) => ({ success: state.session.loginSuccess });
+const mapState = ({ session }) => ({
+  success: session.loginSuccess
+});
 
 const mapDispatch = (dispatch) => {
   return {

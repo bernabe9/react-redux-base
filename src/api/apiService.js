@@ -20,7 +20,6 @@ const handleErrors = (response) =>
       if (response.status === 401) {
         session.deleteSession();
         browserHistory.replace('/login');
-        reject({ message: 'Unauthorized' });
         return;
       }
     });

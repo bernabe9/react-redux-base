@@ -1,24 +1,41 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Input from './common/Input';
+import * as constraints from '../utils/constraints';
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = ({ handleSubmit, error }) => {
   return (
     <form onSubmit={handleSubmit}>
+      {error && <strong>{error}</strong>}
       <div>
-        <label htmlFor="email">Email</label>
-        <Field name="email" component="input" type="email"/>
+        <Field
+          name="email"
+          label="Email"
+          component={Input}
+          type="email"
+        />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <Field name="password" component="input" type="password"/>
+        <Field
+          name="password"
+          label="Password"
+          component={Input}
+          type="password"
+        />
       </div>
       <button type="submit">Submit</button>
     </form>
   );
 };
 
-const { func } = PropTypes;
+const { func, string } = PropTypes;
 
-LoginForm.propTypes = { handleSubmit: func.isRequired };
+LoginForm.propTypes = {
+  handleSubmit: func.isRequired,
+  error: string
+};
 
-export default reduxForm({ form: 'login' })(LoginForm);
+export default reduxForm({
+  form: 'login',
+  validate: constraints.validations(constraints.login)
+})(LoginForm);
