@@ -10,6 +10,7 @@ const handleErrors = (response) =>
     }
 
     if (response.ok) {
+      saveSessionHeaders(response.headers);
       resolve(response);
       return;
     }
@@ -40,6 +41,15 @@ const getResponseBody = (response) => {
   return response.json();
 };
 
+const saveSessionHeaders = (headers) => {
+  const sessionHeaders = {
+    token: headers.get('access-token'),
+    uid: headers.get('uid'),
+    client: headers.get('client')
+  };
+  session.saveSession(sessionHeaders);
+};
+
 class Api {
 
   performRequest(uri, requestData = {}) {
@@ -54,8 +64,11 @@ class Api {
 
   addTokenHeader(requestData) {
     return session.isLogged()
-    .then(token => {
-      requestData.headers['X-USER-TOKEN'] = token;
+    .then(session => {
+      const { token, client, uid } = session;
+      requestData.headers['access-token'] = token;
+      requestData.headers['client'] = client;
+      requestData.headers['uid'] = uid;
       return requestData;
     }).catch(() => requestData);
   }
