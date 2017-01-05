@@ -6,12 +6,20 @@ export const loadSession = () => {
   .then(value => value);
 };
 
-export const saveSession = (userData) => {
-  return localForage.setItem(constant.USER_SESSION, userData);
+export const saveSession = (session) => {
+  return localForage.setItem(constant.USER_SESSION, session);
 };
 
 export const deleteSession = () => {
   return localForage.removeItem(constant.USER_SESSION);
+};
+
+export const saveUser = (user) => {
+  return localForage.setItem(constant.USER_DATA, user);
+};
+
+export const deleteUser = () => {
+  return localForage.removeItem(constant.USER_DATA);
 };
 
 export const checkAuth = (nextState, replace, next) => {
@@ -30,8 +38,8 @@ export const isLogged = () => {
   return new Promise((resolve, reject) => {
     loadSession()
     .then((currentSession) => {
-      if (currentSession && currentSession.email && currentSession.token) {
-        resolve(currentSession.token);
+      if (currentSession && currentSession.token) {
+        resolve(currentSession);
       } else {
         reject('nope');
       }

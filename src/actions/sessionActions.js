@@ -2,10 +2,9 @@ import * as types from './actionTypes';
 import sessionApi from '../api/sessionApi';
 import * as session from '../services/sessionService';
 
-export const loginSuccess = (response) => {
+export const loginSuccess = () => {
   return {
-    type: types.LOGIN_SUCCESS,
-    response
+    type: types.LOGIN_SUCCESS
   };
 };
 
@@ -23,8 +22,8 @@ export const logoutSuccess = () => {
 export const login = (user) => {
   return (dispatch) => {
     return sessionApi.login({ user }).then(response => {
-      session.saveSession(response);
-      dispatch(loginSuccess(response));
+      session.saveUser(response.data);
+      dispatch(loginSuccess());
     }).catch(err => {
       dispatch(loginError(err));
     });
@@ -35,6 +34,7 @@ export const logout = () => {
   return (dispatch) => {
     return sessionApi.logout().then(() => {
       session.deleteSession();
+      session.deleteUser();
       dispatch(logoutSuccess());
     }).catch(err => {
       throw (err);
