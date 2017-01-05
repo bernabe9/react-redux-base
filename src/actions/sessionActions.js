@@ -3,9 +3,7 @@ import sessionApi from '../api/sessionApi';
 import * as session from '../services/sessionService';
 
 export const loginSuccess = () => {
-  return {
-    type: types.LOGIN_SUCCESS
-  };
+  return { type: types.LOGIN_SUCCESS };
 };
 
 export const loginError = (response) => {

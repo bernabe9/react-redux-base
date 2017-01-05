@@ -41,7 +41,7 @@ export const isLogged = () => {
       if (currentSession && currentSession.token) {
         resolve(currentSession);
       } else {
-        reject('nope');
+        reject();
       }
     });
   });
