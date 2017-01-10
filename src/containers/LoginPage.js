@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import * as sessionActions from '../actions/sessionActions';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/session/LoginForm';
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -21,6 +21,7 @@ class LoginPage extends Component {
       <div>
         <p>LOGIN</p>
         <LoginForm onSubmit={login}/>
+        <Link to="sign-up"> Sign up </Link>
       </div>
     );
   }
