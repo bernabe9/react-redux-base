@@ -1,9 +1,15 @@
 // This component handles the App template used on every page.
 import React, { Component, PropTypes } from 'react';
-
-const { object } = PropTypes;
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as sessionActions from '../actions/sessionActions';
 
 class App extends Component {
+  componentWillMount() {
+    const { checkSession } = this.props.actions;
+    checkSession();
+  }
+
   render() {
     return (
       <div>
@@ -13,8 +19,19 @@ class App extends Component {
   }
 }
 
+const { object } = PropTypes;
+
 App.propTypes = {
-  children: object.isRequired
+  children: object.isRequired,
+  actions: object.isRequired
 };
 
-export default App;
+const mapState = () => ({});
+
+const mapDispatch = (dispatch) => {
+  return {
+    actions: bindActionCreators(sessionActions, dispatch)
+  };
+};
+
+export default connect(mapState, mapDispatch)(App);
