@@ -42,23 +42,6 @@ describe('Actions::Session', () => {
     };
 
     describe('success with correct credentials', () => {
-      const response = {
-        data: {
-          email: 'test@test.com',
-          username: 'test@test.com'
-        }
-      };
-
-      const headers = {
-        'access-token': '1234-1234',
-        'uid': 'example',
-        'client': 'example'
-      };
-
-      nock(consts.API_URL)
-        .post('/users/sign_in', { user })
-        .reply(200, response, headers);
-
       it('should change the authenticated flag in the redux store', () => {
         const store = createStore(rootReducer, initialState);
         const action = sessionActions.loginSuccess();
