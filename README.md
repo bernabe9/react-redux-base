@@ -11,7 +11,7 @@
 
 ##Deploying to AWS S3
 1. **Instal [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)**
-2. **Configurate AWS** with the command `aws configure`
+2. **Configure AWS** with the command `aws configure`
 3. **Set the buckets for your app** in the script `/tools/deployS3.js`
 4. **Run the command to deploy** to AWS: `npm run deploy:staging` or `npm run deploy:production`
 
