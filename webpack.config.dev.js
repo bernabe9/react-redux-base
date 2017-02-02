@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+import { config } from './src/constants/devConstants';
 
 export default {
   resolve: {
@@ -35,6 +36,9 @@ export default {
         collapseWhitespace: true
       },
       inject: true
+    }),
+    new webpack.DefinePlugin({
+      'config': JSON.stringify(config)
     })
   ],
   module: {
