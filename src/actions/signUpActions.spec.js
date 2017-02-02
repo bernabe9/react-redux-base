@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
 import * as consts from '../constants/apiConstants.js';
-import initialState from '../reducers/initialState';
+import { initialState } from '../reducers/sessionReducer';
 import rootReducer from '../reducers';
 import { createStore } from 'redux';
 
