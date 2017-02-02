@@ -1,4 +1,4 @@
-import * as constant from '../constants/apiConstants';
+import * as constant from '../constants/constants';
 import * as localForage from 'localforage';
 
 export const loadSession = () => {

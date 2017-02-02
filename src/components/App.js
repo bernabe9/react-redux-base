@@ -26,12 +26,10 @@ App.propTypes = {
   actions: object.isRequired
 };
 
-const mapState = () => ({});
-
 const mapDispatch = (dispatch) => {
   return {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 };
 
-export default connect(mapState, mapDispatch)(App);
+export default connect(null, mapDispatch)(App);

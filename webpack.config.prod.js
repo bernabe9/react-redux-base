@@ -5,6 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+import { config } from './src/constants/prodConstants';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
@@ -64,6 +65,10 @@ export default {
       compress: {
         warnings: false
       }
+    }),
+
+    new webpack.DefinePlugin({
+      'config': JSON.stringify(config)
     })
   ],
   module: {
