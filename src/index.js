@@ -9,6 +9,7 @@ import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
+import { checkSession } from './actions/sessionActions';
 import './styles/styles.scss';
 
 const store = configureStore();
@@ -21,3 +22,7 @@ render(
     <Router history={history} routes={routes} render={applyRouterMiddleware(useScroll())}/>
   </Provider>, document.getElementById('app')
 );
+
+export const unauthorizeRedirection = () => {
+  store.dispatch(checkSession());
+};

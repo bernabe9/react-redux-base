@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import * as session from '../services/sessionService';
 import { browserHistory } from 'react-router';
 import humps from 'humps';
-import { logoutSuccess } from '../actions/sessionActions';
+import { unauthorizeRedirection } from '../index.js';
 
 const handleErrors = (response) =>
   new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ const handleErrors = (response) =>
     .then(() => {
       if (response.status === 401) {
         session.deleteSession();
-        logoutSuccess();
+        unauthorizeRedirection();
         browserHistory.replace('/login');
         return;
       }
