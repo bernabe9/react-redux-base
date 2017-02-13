@@ -1,19 +1,13 @@
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-import * as types from './actionTypes';
+import { sessionService } from 'redux-react-session';
 import sessionApi from '../api/sessionApi';
-import * as session from '../services/sessionService';
-
-export const signUpSuccess = () => {
-  return { type: types.SIGN_UP_SUCCESS };
-};
 
 export const signUp = (user) => {
-  return (dispatch) => {
+  return () => {
     return sessionApi.signUp({ user }).then(response => {
-      session.saveUser(response.data)
+      sessionService.saveUser(response.data)
       .then(() => {
-        dispatch(signUpSuccess());
         browserHistory.replace('/');
       });
     }).catch(err => {
