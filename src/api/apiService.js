@@ -1,8 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import * as session from '../services/sessionService';
+import { sessionService } from 'redux-react-session';
 import { browserHistory } from 'react-router';
 import humps from 'humps';
-import { unauthorizeRedirection } from '../index.js';
 
 const handleErrors = (response) =>
   new Promise((resolve, reject) => {
@@ -17,11 +16,10 @@ const handleErrors = (response) =>
       return;
     }
 
-    session.isLogged()
+    sessionService.isLogged()
     .then(() => {
       if (response.status === 401) {
-        session.deleteSession();
-        unauthorizeRedirection();
+        sessionService.deleteSession();
         browserHistory.replace('/login');
         return;
       }
@@ -43,12 +41,14 @@ const getResponseBody = (response) => {
 };
 
 const saveSessionHeaders = (headers) => {
-  const sessionHeaders = {
-    token: headers.get('access-token'),
-    uid: headers.get('uid'),
-    client: headers.get('client')
-  };
-  session.saveSession(sessionHeaders);
+  if (headers.get('access-token')) {
+    const sessionHeaders = {
+      token: headers.get('access-token'),
+      uid: headers.get('uid'),
+      client: headers.get('client')
+    };
+    sessionService.saveSession(sessionHeaders);
+  }
 };
 
 class Api {
@@ -65,7 +65,7 @@ class Api {
   }
 
   addTokenHeader(requestData) {
-    return session.isLogged()
+    return sessionService.isLogged()
     .then(session => {
       const { token, client, uid } = session;
       requestData.headers['access-token'] = token;
