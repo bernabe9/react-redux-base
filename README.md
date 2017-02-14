@@ -40,3 +40,4 @@
 | [Humps](https://github.com/domchristie/humps) | Underscore-to-camelCase converter (and vice versa) for strings and object keys in JavaScript.|
 | [Redux Logger](https://github.com/evgenyrodionov/redux-logger) | Logger middleware for Redux. |
 | [Immutable.js](https://github.com/facebook/immutable-js/) | Immutable persistent data collections for Javascript which increase efficiency and simplicity. |
+| [Redux React Session](https://github.com/bernabe9/redux-react-session) | Keep your session sync with localStorage and Redux |
