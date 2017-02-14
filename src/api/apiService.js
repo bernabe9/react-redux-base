@@ -16,7 +16,7 @@ const handleErrors = (response) =>
       return;
     }
 
-    sessionService.isLogged()
+    sessionService.loadSession()
     .then(() => {
       if (response.status === 401) {
         sessionService.deleteSession();
@@ -65,7 +65,7 @@ class Api {
   }
 
   addTokenHeader(requestData) {
-    return sessionService.isLogged()
+    return sessionService.loadSession()
     .then(session => {
       const { token, client, uid } = session;
       requestData.headers['access-token'] = token;
