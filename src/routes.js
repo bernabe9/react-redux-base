@@ -9,7 +9,6 @@ import SignUpPage from './containers/SignUpPage';
 export default (
   <Route path="/" component={App}>
     <IndexRoute onEnter={sessionService.checkAuth} component={HomePage} />
-    <Route path="here" onEnter={sessionService.checkAuth} component={HomePage} />
     <Route path="login" component={LoginPage} />
     <Route path="sign-up" component={SignUpPage} />
   </Route>
