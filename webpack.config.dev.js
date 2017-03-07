@@ -58,11 +58,12 @@ export default {
   ],
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader',
+      { test: /\.jsx?$/, exclude: /node_modules/,
+        loader: 'babel-loader',
         options: {
           cacheDirectory: true,
           babelrc: false,
-          presets: [['es2015', { modules: false }], 'react', 'stage-2'],
+          presets: [['env', { modules: false }], 'react', 'stage-1'],
           plugins: ['react-hot-loader/babel'],
         }
       },
