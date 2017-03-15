@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import * as signUpActions from '../actions/signUpActions';
 import SignUpForm from '../components/user/SignUpForm';
 
-const SignUpPage = ({ actions: { signUp } }) => (
-  <div>
-    <p>SIGN UP</p>
-    <SignUpForm onSubmit={signUp}/>
-  </div>
-);
+export class SignUpPage extends Component {
+  render() {
+    const { authenticated, actions: { signUp } } = this.props;
 
-const { object } = PropTypes;
+    if (authenticated) {
+      return <Redirect to="/" />;
+    }
+
+    return (
+      <div>
+        <p>SIGN UP</p>
+        <SignUpForm onSubmit={signUp}/>
+      </div>
+    );
+  }
+}
+
+const { object, bool } = PropTypes;
 
 SignUpPage.propTypes = {
-  actions: object.isRequired
+  actions: object.isRequired,
+  authenticated: bool.isRequired
 };
+
+const mapState = ({ session }) => ({
+  authenticated: session.authenticated
+});
 
 const mapDispatch = (dispatch) => {
   return {
@@ -24,4 +40,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(SignUpPage);
+export default connect(mapState, mapDispatch)(SignUpPage);

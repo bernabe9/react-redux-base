@@ -8,7 +8,7 @@ describe('<LoginPage />', () => {
     const actions = {
       login: () => {}
     };
-    const wrapper = shallow(<LoginPage actions={actions}/>);
+    const wrapper = shallow(<LoginPage actions={actions} authenticated={false} />);
 
     expect(wrapper.find(LoginForm)).toHaveLength(1);
   });

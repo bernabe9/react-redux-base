@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import { sessionService } from 'redux-react-session';
-import { browserHistory } from 'react-router';
 import humps from 'humps';
 
 const handleErrors = (response) =>
@@ -20,7 +19,7 @@ const handleErrors = (response) =>
     .then(() => {
       if (response.status === 401) {
         sessionService.deleteSession();
-        browserHistory.replace('/login');
+        window.location = '/login';
         return;
       }
     });
