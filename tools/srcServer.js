@@ -1,4 +1,4 @@
-/* eslint no-console: 0 */
+/* eslint-disable no-console, import/no-extraneous-dependencies */
 
 import path from 'path';
 import express from 'express';

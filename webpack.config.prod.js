@@ -6,7 +6,7 @@ import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import { config } from './src/constants/prodConstants';
+import config from './src/constants/prodConstants';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
@@ -70,7 +70,7 @@ export default {
     }),
 
     new webpack.DefinePlugin({
-      'config': JSON.stringify(config)
+      config: JSON.stringify(config)
     })
   ],
   module: {

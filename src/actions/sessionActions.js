@@ -2,25 +2,22 @@ import { SubmissionError } from 'redux-form';
 import { sessionService } from 'redux-react-session';
 import sessionApi from '../api/sessionApi';
 
-export const login = (user) => {
-  return () => {
-    return sessionApi.login({ user }).then(response => {
+export const login = user =>
+  () =>
+    sessionApi.login({ user }).then((response) => {
       sessionService.saveUser(response.data);
-    }).catch(err => {
+    }).catch((err) => {
       throw new SubmissionError({
         _error: err.errors[0]
       });
     });
-  };
-};
 
-export const logout = () => {
-  return () => {
-    return sessionApi.logout().then(() => {
+export const logout = () =>
+  () => {
+    sessionApi.logout().then(() => {
       sessionService.deleteSession();
       sessionService.deleteUser();
-    }).catch(err => {
+    }).catch((err) => {
       throw (err);
     });
   };
-};

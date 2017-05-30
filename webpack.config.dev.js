@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import { config } from './src/constants/devConstants';
+import config from './src/constants/devConstants';
 
 export default {
   resolve: {
@@ -53,12 +53,13 @@ export default {
       }
     }),
     new webpack.DefinePlugin({
-      'config': JSON.stringify(config)
+      config: JSON.stringify(config)
     })
   ],
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/,
+      { test: /\.jsx?$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
           cacheDirectory: true,
