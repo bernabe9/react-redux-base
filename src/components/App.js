@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import { connect } from 'react-redux';
+import history from '../utils/history';
 import HomePage from '../containers/HomePage';
 import LoginPage from '../containers/LoginPage'; // eslint-disable-line import/no-named-as-default
 import SignUpPage from '../containers/SignUpPage'; // eslint-disable-line import/no-named-as-default
 import PrivateRoute from './routes/PrivateRoute';
 
 const App = ({ authenticated, checked }) => (
-  <Router>
+  <ConnectedRouter history={history}>
     { checked &&
       <div>
         <PrivateRoute
@@ -21,7 +23,7 @@ const App = ({ authenticated, checked }) => (
         <Route path="/sign-up" component={SignUpPage} />
       </div>
     }
-  </Router>
+  </ConnectedRouter>
 );
 
 const { bool } = PropTypes;

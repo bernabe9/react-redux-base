@@ -1,11 +1,13 @@
 import { SubmissionError } from 'redux-form';
 import { sessionService } from 'redux-react-session';
+import { push } from 'react-router-redux';
 import sessionApi from '../api/sessionApi';
 
 export const signUp = user =>
-  () =>
+  dispatch =>
     sessionApi.signUp({ user }).then((response) => {
-      sessionService.saveUser(response.data);
+      sessionService.saveUser(response)
+      .then(() => dispatch(push('/')));
     }).catch((err) => {
       throw new SubmissionError(err.errors);
     });

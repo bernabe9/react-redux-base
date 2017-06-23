@@ -4,8 +4,8 @@ import sessionApi from '../api/sessionApi';
 
 export const login = user =>
   () =>
-    sessionApi.login({ user }).then((response) => {
-      sessionService.saveUser(response.data);
+    sessionApi.login({ user }).then(({ data }) => {
+      sessionService.saveUser(data);
     }).catch((err) => {
       throw new SubmissionError({
         _error: err.errors[0]
