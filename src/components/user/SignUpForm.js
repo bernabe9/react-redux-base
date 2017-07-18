@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { func } from 'prop-types';
+import { Field, reduxForm } from 'redux-form/immutable';
+
 import Input from '../common/Input';
 import * as constraints from '../../utils/constraints';
 
@@ -33,8 +34,6 @@ const SignUpForm = ({ handleSubmit }) => (
     <button type="submit">Submit</button>
   </form>
 );
-
-const { func } = PropTypes;
 
 SignUpForm.propTypes = {
   handleSubmit: func.isRequired

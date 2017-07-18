@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link, Redirect } from 'react-router-dom';
-import * as sessionActions from '../actions/sessionActions';
+
+import { login } from '../actions/sessionActions';
 import LoginForm from '../components/session/LoginForm';
 
-export const LoginPage = ({ authenticated, actions: { login } }) => {
+export const LoginPage = ({ authenticated, login }) => {
   if (authenticated) {
     return <Redirect to="/" />;
   }
@@ -20,19 +20,17 @@ export const LoginPage = ({ authenticated, actions: { login } }) => {
   );
 };
 
-const { object, bool } = PropTypes;
-
 LoginPage.propTypes = {
-  actions: object.isRequired,
-  authenticated: bool.isRequired
+  authenticated: bool.isRequired,
+  login: func.isRequired
 };
 
-const mapState = ({ session }) => ({
-  authenticated: session.authenticated
+const mapState = state => ({
+  authenticated: state.getIn(['session', 'authenticated'])
 });
 
 const mapDispatch = dispatch => ({
-  actions: bindActionCreators(sessionActions, dispatch)
+  login: user => dispatch(login(user.toJS()))
 });
 
 export default connect(mapState, mapDispatch)(LoginPage);

@@ -1,6 +1,7 @@
 import { SubmissionError } from 'redux-form';
 import { sessionService } from 'redux-react-session';
 import { push } from 'react-router-redux';
+
 import sessionApi from '../api/sessionApi';
 
 export const signUp = user =>

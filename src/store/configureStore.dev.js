@@ -16,15 +16,7 @@ export default function configureStore(initialState) {
   const logger = createLogger({
     collapsed: true,
     predicate: (getState, { type }) => !_.startsWith(type, '@@router') && !_.startsWith(type, '@@redux-form'),
-    stateTransformer: (state) => {
-      const newState = {};
-
-      Object.keys(state).forEach((i) => {
-        newState[i] = Iterable.isIterable(state[i]) ? state[i].toJS() : state[i];
-      });
-
-      return newState;
-    }
+    stateTransformer: state => (Iterable.isIterable(state) ? state.toJS() : state)
   });
   const middewares = [
     reduxImmutableStateInvariant(),

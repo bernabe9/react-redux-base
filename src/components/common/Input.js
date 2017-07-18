@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, object } from 'prop-types';
 
 const Input = ({ input, label, type, placeholder, meta: { touched, error } }) => (
   <div>
@@ -11,12 +11,10 @@ const Input = ({ input, label, type, placeholder, meta: { touched, error } }) =>
   </div>
 );
 
-const { string, object } = PropTypes;
-
 Input.propTypes = {
   input: object.isRequired,
-  label: string,
   type: string.isRequired,
+  label: string,
   placeholder: string,
   meta: object
 };

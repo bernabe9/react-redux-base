@@ -1,10 +1,9 @@
-/* eslint-disable import/default, import/no-extraneous-dependencies */
-
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { sessionService } from 'redux-react-session';
 import { AppContainer } from 'react-hot-loader';
+
 import configureStore from './store/configureStore';
 import App from './components/App';
 import './styles/styles.scss';

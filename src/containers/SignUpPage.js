@@ -1,25 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as signUpActions from '../actions/signUpActions';
+
+import { signUp } from '../actions/signUpActions';
 import SignUpForm from '../components/user/SignUpForm';
 
-const SignUpPage = ({ actions: { signUp } }) => (
+const SignUpPage = ({ signUp }) => (
   <div>
     <p>SIGN UP</p>
     <SignUpForm onSubmit={signUp} />
   </div>
 );
 
-const { object } = PropTypes;
-
 SignUpPage.propTypes = {
-  actions: object.isRequired
+  signUp: func.isRequired
 };
 
 const mapDispatch = dispatch => ({
-  actions: bindActionCreators(signUpActions, dispatch)
+  signUp: user => dispatch(signUp(user.toJS()))
 });
 
 export default connect(null, mapDispatch)(SignUpPage);

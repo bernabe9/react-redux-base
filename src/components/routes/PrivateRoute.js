@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { object, bool, string, func } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component, exact = false, path, authenticated }) => (
@@ -21,13 +21,11 @@ const PrivateRoute = ({ component, exact = false, path, authenticated }) => (
   />
 );
 
-const { object, bool, string, func } = PropTypes;
-
 PrivateRoute.propTypes = {
   component: func.isRequired,
-  exact: bool,
   path: string.isRequired,
   authenticated: bool.isRequired,
+  exact: bool,
   location: object
 };
 

@@ -3092,7 +3092,7 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
 
-immutable@3.8.1:
+immutable@3.8.1, immutable@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -5467,16 +5467,21 @@ redux-immutable-state-invariant@2.0.0:
     invariant "^2.1.0"
     json-stringify-safe "^5.0.1"
 
+redux-immutable@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-4.0.0.tgz#3a1a32df66366462b63691f0e1dc35e472bbc9f3"
+
 redux-logger@3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
   dependencies:
     deep-diff "^0.3.5"
 
-redux-react-session@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/redux-react-session/-/redux-react-session-2.0.4.tgz#6c6ca50ab391d434d3dd03ca6ff5aaa0b898320b"
+redux-react-session@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/redux-react-session/-/redux-react-session-2.1.0.tgz#e35c5afeb9faa57150d5d0ba7e18eadd8f88e2d3"
   dependencies:
+    immutable "^3.8.1"
     js-cookie "2.1.4"
     localforage "1.5.0"
 
