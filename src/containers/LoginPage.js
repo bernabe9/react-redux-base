@@ -6,7 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { login } from '../actions/sessionActions';
 import LoginForm from '../components/session/LoginForm';
 
-export const LoginPage = ({ authenticated, login }) => {
+const LoginPage = ({ authenticated, login }) => {
   if (authenticated) {
     return <Redirect to="/" />;
   }

@@ -32,7 +32,7 @@ const handleErrors = response =>
         sessionService.deleteSession();
         window.location = '/login';
       }
-    });
+    }).catch(() => {});
 
     response.json()
       .then((json) => {
