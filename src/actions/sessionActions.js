@@ -1,5 +1,6 @@
-import { SubmissionError } from 'redux-form';
+import { SubmissionError } from 'redux-form/immutable';
 import { sessionService } from 'redux-react-session';
+
 import sessionApi from '../api/sessionApi';
 
 export const login = user =>

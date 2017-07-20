@@ -20,8 +20,8 @@ const handleErrors = response =>
       return;
     }
 
+    saveSessionHeaders(response.headers);
     if (response.ok) {
-      saveSessionHeaders(response.headers);
       resolve(response);
       return;
     }

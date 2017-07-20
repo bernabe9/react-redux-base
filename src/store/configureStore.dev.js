@@ -9,6 +9,7 @@ import { Iterable } from 'immutable';
 import { createLogger } from 'redux-logger';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'; // eslint-disable-line import/no-extraneous-dependencies
 import _ from 'lodash';
+
 import history from '../utils/history';
 import rootReducer from '../reducers';
 
