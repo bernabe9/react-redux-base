@@ -3,9 +3,8 @@ cache: yarn
 node_js:
   - "8"
   - "7"
-  - "6"
 script:
   - yarn run lint
-  - yarn run test:CI
+  - yarn run test
 after_success:
   - yarn run test:cover:CI

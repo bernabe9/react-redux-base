@@ -4,10 +4,7 @@
     "stage-1",
     [
       "env", {
-        "targets": {
-          "chrome": 52,
-          "node": "current"
-        }
+        "targets": {}
       }
     ]
   ],
