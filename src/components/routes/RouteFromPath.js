@@ -1,23 +1,17 @@
 import React from 'react';
-import { object, bool } from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 
-const RouteFromPath = ({ route, authenticated }) => (
+const RouteFromPath = route => (
   route.private ?
     <PrivateRoute
       {...route}
-      authenticated={authenticated}
+      authenticated={route.authenticated}
     /> :
     <Route
       {...route}
     />
 );
-
-RouteFromPath.propTypes = {
-  route: object.isRequired,
-  authenticated: bool.isRequired
-};
 
 export default RouteFromPath;

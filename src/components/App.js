@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConnectedRouter } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { Switch } from 'react-router-dom';
 
 import history from '../utils/history';
 import RouteFromPath from './routes/RouteFromPath';
@@ -10,15 +11,15 @@ import routes from '../routes';
 const App = ({ authenticated, checked }) => (
   <ConnectedRouter history={history}>
     { checked &&
-      <div>
+      <Switch>
         {routes.map((route, index) =>
           <RouteFromPath
             key={`route${index}`}
-            route={route}
+            {...route}
             authenticated={authenticated}
           />
         )}
-      </div>
+      </Switch>
     }
   </ConnectedRouter>
 );

@@ -1,6 +1,7 @@
 import HomePage from './containers/HomePage';
 import LoginPage from './containers/LoginPage';
 import SignUpPage from './containers/SignUpPage';
+import NotFoundPage from './containers/NotFoundPage';
 
 const routes = [
   { path: '/',
@@ -14,6 +15,9 @@ const routes = [
   {
     path: '/sign-up',
     component: SignUpPage
+  },
+  {
+    component: NotFoundPage
   }
 ];
 
