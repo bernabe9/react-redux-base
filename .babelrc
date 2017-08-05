@@ -2,14 +2,24 @@
   "presets": [
     "react",
     "stage-1",
-    [
-      "env", {
-        "targets": {}
-      }
-    ]
+    "env"
   ],
   "env": {
     "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "es2015": {
+              "modules": false
+            },
+            "targets": {
+              "ie": 9,
+              "uglify": true
+            }
+          }
+        ]
+      ],
       "plugins": [
         "transform-react-constant-elements",
         "transform-react-remove-prop-types"
