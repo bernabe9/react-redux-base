@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import 'babel-polyfill';
@@ -68,6 +69,14 @@ export default {
         context: '/',
         postcss: () => [autoprefixer],
       }
+    }),
+
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
     }),
 
     new webpack.DefinePlugin({
