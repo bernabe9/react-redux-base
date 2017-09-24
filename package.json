@@ -116,7 +116,8 @@
       "config": {
         "API_URL": "http://api-testing-url.com"
       }
-    }
+    },
+    "testURL": "http://localhost"
   },
   "keywords": [],
   "repository": {
