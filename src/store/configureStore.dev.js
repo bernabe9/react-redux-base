@@ -7,7 +7,6 @@ import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import { Iterable } from 'immutable';
 import { createLogger } from 'redux-logger';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'; // eslint-disable-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
 import history from '../utils/history';
@@ -20,7 +19,6 @@ export default function configureStore(initialState) {
     stateTransformer: state => (Iterable.isIterable(state) ? state.toJS() : state)
   });
   const middewares = [
-    reduxImmutableStateInvariant(),
     routerMiddleware(history),
 
     // thunk middleware can also accept an extra argument to be passed to each thunk action
