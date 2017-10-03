@@ -37,3 +37,8 @@ dist
 
 # Mac files
 .DS_Store
+
+# Environment variables
+.env.dev
+.env.staging
+.env.prod

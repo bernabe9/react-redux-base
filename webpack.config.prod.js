@@ -8,7 +8,7 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import 'babel-polyfill';
-import config from './src/constants/prodConstants';
+import Dotenv from 'dotenv-webpack';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
@@ -79,8 +79,9 @@ export default {
       minRatio: 0.8
     }),
 
-    new webpack.DefinePlugin({
-      config: JSON.stringify(config)
+    new Dotenv({
+      path: path.resolve(__dirname, `.env.${process.env.ENVIRONMENT}`),
+      systemvars: true
     })
   ],
   module: {
