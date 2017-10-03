@@ -30,8 +30,9 @@
     "test:cover:CI": "npm run test:cover && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "test:watch": "npm run test -- --watch",
     "open:cover": "npm run test:cover && open coverage/lcov-report/index.html",
+    "deploy:dev": "npm run just-build:dev && babel-node tools/deployS3 dev",
     "deploy:staging": "npm run just-build:staging && babel-node tools/deployS3 staging",
-    "deploy:prod": "npm run just-build:prod &&  babel-node tools/deployS3 production",
+    "deploy:prod": "npm run just-build:prod &&  babel-node tools/deployS3 prod",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
   "author": "Bernabe Gonzalez",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
+    "aws-sdk": "2.126.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.2",
@@ -91,6 +93,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "20.0.4",
     "json-loader": "0.5.4",
+    "mime": "2.0.3",
     "nock": "9.0.14",
     "node-sass": "4.5.3",
     "npm-run-all": "4.0.2",

@@ -16,6 +16,10 @@
   `.env.example` example:
   ```
     API_URL=http://your-api-url.com
+    AWS_BUCKET=bucket
+    AWS_REGION=region
+    AWS_ACCESS_KEY_ID=key_id
+    AWS_SECRET_ACCESS_KEY=secret_key
   ```
 4. Start the dev server: `yarn start` or `npm start -s`
 
@@ -24,10 +28,8 @@
 **Install [Node 4.0.0 or greater](https://nodejs.org)** - (5.0 or greater is recommended for optimal build performance). Need to run multiple versions of Node? Use [nvm](https://github.com/creationix/nvm).
 
 ## Deploying to AWS S3
-1. **Install [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)**
-2. **Configure AWS** with the command `aws configure`
-3. **Set the buckets for your app** in the script `/tools/deployS3.js`
-4. **Run the command to deploy** `npm run deploy:staging` or `npm run deploy:production`
+1. **Add the environment variables for each .env** AWS_BUCKET, AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+2. **Run the command to deploy with an environment** `yarn deploy:dev`, `yarn deploy:staging` or `yarn deploy:prod`
 
 ## Technologies
 
