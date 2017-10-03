@@ -97,7 +97,5 @@
     "react/jsx-wrap-multilines": 0,
     "react/no-array-index-key": 0
   },
-  "globals": {
-    "config": true
-  }
+  "globals": {}
 }

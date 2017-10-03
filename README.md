@@ -8,6 +8,18 @@
 3. **Lint the app**. `yarn lint`
 4. **Test the app**. `yarn test`
 
+## Getting Started
+1. Clone the repository
+2. Install dependencies: `yarn` or `npm install`
+3. Create the environment variables files in root folder(.env.dev, .env.staging and .env.prod):
+
+  `.env.example` example:
+  ```
+    API_URL=http://your-api-url.com
+  ```
+4. Start the dev server: `yarn start` or `npm start -s`
+
+
 ## Initial Machine Setup
 **Install [Node 4.0.0 or greater](https://nodejs.org)** - (5.0 or greater is recommended for optimal build performance). Need to run multiple versions of Node? Use [nvm](https://github.com/creationix/nvm).
 
