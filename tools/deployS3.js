@@ -1,13 +1,10 @@
-/* eslint-disable */
 import { chalkSuccess, chalkInfo } from './chalkConfig';
+import s3 from './s3';
+import path from 'path';
+import dotenv from 'dotenv';
 
 const environment = process.argv[2];
-
-// Set the buckets for your app
-const devBucket = 's3://dev-your-app';
-const devRegion = 'dev-region';
-const prodBucket = 's3://prod-your-app';
-const prodRegion = 'prod-region';
+dotenv.config({ path: path.resolve(__dirname, `../.env.${environment}`) });
 
 if (environment) {
   // Get current branch from git
@@ -33,27 +30,14 @@ if (environment) {
         rl.close();
         if (answer === 'y') {
           console.log(chalkInfo('Deploying to AWS S3...'));
-          let bucket;
-          let region;
-          if (environment === 'staging') {
-            bucket = devBucket;
-            region = devRegion;
-          } else if (environment === 'production') {
-            bucket = prodBucket;
-            region = prodRegion;
-          } else {
-            throw new Error('Invalid environment parameter. Options are: staging and production');
+          const client = new s3();
+          client.clearBucket().then(() => {
+            client.syncDir('../dist').then(() => {
+              console.log(chalkSuccess('\nSUCCESS: ./dist folder was deployed to AWS S3'));
+            });
+          }).catch(err => {
+            throw new Error(err);
             process.exit(1);
-          }
-          const flags = `--region ${region} --acl public-read --delete --cache-control`;
-          const deploy = require('child_process').exec;
-          deploy(`aws s3 sync dist ${bucket} ${flags} 'public, no-cache, max-age=43200'`,
-          function (err, stdout, stderr) {
-            if (err) {
-              throw new Error('ERROR(S3): problem deploying to AWS S3.');
-              process.exit(1);
-            };
-            console.log(chalkSuccess('SUCCESS: ./dist folder was deployed to AWS S3'));
           });
         }
       });
