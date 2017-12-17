@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { bool } from 'prop-types';
 import { ConnectedRouter } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router-dom';
@@ -17,14 +17,12 @@ const App = ({ authenticated, checked }) => (
             key={`route${index}`}
             {...route}
             authenticated={authenticated}
-          />
-        )}
+          />)
+        }
       </Switch>
     }
   </ConnectedRouter>
 );
-
-const { bool } = PropTypes;
 
 App.propTypes = {
   authenticated: bool.isRequired,
