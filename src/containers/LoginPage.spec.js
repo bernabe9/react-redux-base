@@ -8,7 +8,7 @@ import configureStore from '../store/configureStore';
 import { testWrapper } from '../utils/testWrapper';
 import LoginPage from './LoginPage';
 import { LoginForm } from '../components/session/LoginForm';
-import Input from '../components/common/Input';
+import InputField from '../components/common/input/InputField';
 
 describe('<LoginPage />', () => {
   let store;
@@ -97,7 +97,7 @@ describe('<LoginPage />', () => {
     });
 
     it('should display an error in the field', () => {
-      const emailInput = subject.find(Input).at(0);
+      const emailInput = subject.find(InputField).at(0);
       expect(emailInput.props().meta.error).toHaveLength(1);
     });
   });
@@ -116,7 +116,7 @@ describe('<LoginPage />', () => {
     });
 
     it('should display an error in the field', () => {
-      const emailInput = subject.find(Input).at(0);
+      const emailInput = subject.find(InputField).at(0);
       expect(emailInput.props().meta.error).toHaveLength(1);
     });
   });
@@ -135,7 +135,7 @@ describe('<LoginPage />', () => {
     });
 
     it('should display an error in the field', () => {
-      const passwordInput = subject.find(Input).at(1);
+      const passwordInput = subject.find(InputField).at(1);
       expect(passwordInput.props().meta.error).toHaveLength(1);
     });
   });

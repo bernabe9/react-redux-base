@@ -2,7 +2,7 @@ import React from 'react';
 import { func, string } from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import Input from '../common/Input';
+import InputField from '../common/input/InputField';
 import * as constraints from '../../utils/constraints';
 
 export const LoginForm = ({ handleSubmit, error }) => (
@@ -12,7 +12,7 @@ export const LoginForm = ({ handleSubmit, error }) => (
       <Field
         name="email"
         label="Email"
-        component={Input}
+        component={InputField}
         type="email"
       />
     </div>
@@ -20,7 +20,7 @@ export const LoginForm = ({ handleSubmit, error }) => (
       <Field
         name="password"
         label="Password"
-        component={Input}
+        component={InputField}
         type="password"
       />
     </div>

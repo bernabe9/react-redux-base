@@ -38,6 +38,7 @@
 |  [React](https://facebook.github.io/react/)  |   Fast, composable client-side components.|
 |  [Redux](http://redux.js.org) |  Enforces unidirectional data flows and immutable, hot reloadable store. Supports time-travel debugging.|
 |  [React Router 4](https://github.com/reactjs/react-router) | A complete routing library for React |
+|  [Styled Components](https://github.com/styled-components/styled-components) | Visual primitives for the component age |
 |  [Babel](http://babeljs.io) |  Compiles ES6 to ES5. Enjoy the new version of JavaScript today.|
 | [Webpack 3](http://webpack.github.io) | Bundles npm packages and our JS into a single file |
 | [Express](https://github.com/expressjs/express) | Fast, unopinionated, minimalist web framework for node. |

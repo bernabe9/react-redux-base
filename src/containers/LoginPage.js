@@ -3,8 +3,10 @@ import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
-import { login } from '../actions/sessionActions';
 import LoginForm from '../components/session/LoginForm';
+import PageHeading from '../components/common/PageHeading';
+import PageWrapper from '../components/common/PageWrapper';
+import { login } from '../actions/sessionActions';
 
 const LoginPage = ({ authenticated, login }) => {
   if (authenticated) {
@@ -12,11 +14,11 @@ const LoginPage = ({ authenticated, login }) => {
   }
 
   return (
-    <div>
-      <p>LOGIN</p>
+    <PageWrapper>
+      <PageHeading>LOGIN</PageHeading>
       <LoginForm onSubmit={login} />
       <Link to="sign-up">Sign up</Link>
-    </div>
+    </PageWrapper>
   );
 };
 
