@@ -5,10 +5,12 @@ import { push } from 'react-router-redux';
 import sessionApi from '../api/sessionApi';
 
 export const signUp = user =>
-  dispatch =>
-    sessionApi.signUp({ user }).then((response) => {
-      sessionService.saveUser(response.user)
-        .then(() => dispatch(push('/')));
-    }).catch((err) => {
-      throw new SubmissionError(err.errors);
-    });
+  async (dispatch) => {
+    try {
+      const res = await sessionApi.signUp({ user });
+      await sessionService.saveUser(res.user);
+      dispatch(push('/'));
+    } catch ({ errors }) {
+      throw new SubmissionError(errors);
+    }
+  };
