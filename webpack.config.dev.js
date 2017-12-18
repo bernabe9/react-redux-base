@@ -32,7 +32,7 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
+    new HtmlWebpackPlugin({ // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
       minify: {
         removeComments: true,
@@ -59,7 +59,8 @@ export default {
   ],
   module: {
     rules: [
-      { test: /\.jsx?$/,
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {

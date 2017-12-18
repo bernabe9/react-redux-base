@@ -8,7 +8,7 @@ export const signUp = user =>
   dispatch =>
     sessionApi.signUp({ user }).then((response) => {
       sessionService.saveUser(response.user)
-      .then(() => dispatch(push('/')));
+        .then(() => dispatch(push('/')));
     }).catch((err) => {
       throw new SubmissionError(err.errors);
     });

@@ -8,13 +8,13 @@ const PrivateRoute = ({ component, exact = false, path, authenticated }) => (
     path={path}
     render={props => (
       authenticated ?
-      React.createElement(component, props) :
-      <Redirect
-        to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }}
-      />
+        React.createElement(component, props) :
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: props.location }
+          }}
+        />
     )}
   />
 );

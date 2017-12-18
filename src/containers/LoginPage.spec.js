@@ -27,7 +27,7 @@ describe('<LoginPage />', () => {
 
     sessionService.saveUser = jest.fn(() => Promise.resolve());
     sessionService.saveSession = jest.fn(() => Promise.resolve());
-    sessionService.loadSession = jest.fn(() => Promise.reject('Session not found'));
+    sessionService.loadSession = jest.fn(() => Promise.reject(new Error('Session not found')));
   });
 
   it('should display an email input', () => {
@@ -55,8 +55,8 @@ describe('<LoginPage />', () => {
       };
 
       nock(process.env.API_URL)
-      .post('/users/sign_in', { user })
-      .reply(200, userResponse);
+        .post('/users/sign_in', { user })
+        .reply(200, userResponse);
 
       // load valid data to the form
       username.simulate('change', { target: { value: 'joe@joe.com' } });
@@ -141,7 +141,7 @@ describe('<LoginPage />', () => {
   });
 
   describe('submit with errors from server', () => {
-    beforeEach(() => {
+    beforeEach((done) => {
       const user = {
         email: 'joe@joe.com',
         password: 'invalidPassword'
@@ -149,34 +149,35 @@ describe('<LoginPage />', () => {
       const serverError = { errors: ['Invalid login credentials. Please try again.'] };
 
       nock(process.env.API_URL)
-      .post('/users/sign_in', { user })
-      .reply(401, serverError);
+        .post('/users/sign_in', { user })
+        .reply(401, serverError);
 
       // load invalid data to the form
       username.simulate('change', { target: { value: 'joe@joe.com' } });
       password.simulate('change', { target: { value: 'invalidPassword' } });
       form.simulate('submit');
-    });
 
-    it('should not be a valid form', (done) => {
       // wait for changes in the redux store
       const unsubscribe = store.subscribe(() => {
-        const loginForm = subject.find(LoginForm);
-        expect(loginForm.props().valid).toEqual(false);
-        unsubscribe();
-        done();
+        const state = store.getState();
+        const submitFailed = state.getIn(['form', 'login', 'submitFailed']);
+        if (submitFailed) {
+          unsubscribe();
+          subject.update();
+          done();
+        }
       });
     });
 
-    it('should display the server error in the form', (done) => {
-      // wait for changes in the redux store
-      const unsubscribe = store.subscribe(() => {
-        const generalError = subject.find('strong');
-        const error = 'Invalid login credentials. Please try again.';
-        expect(generalError.text()).toEqual(error);
-        unsubscribe();
-        done();
-      });
+    it('should not be a valid form', () => {
+      const loginForm = subject.find(LoginForm);
+      expect(loginForm.props().valid).toEqual(false);
+    });
+
+    it('should display the server error in the form', () => {
+      const generalError = subject.find('strong');
+      const error = 'Invalid login credentials. Please try again.';
+      expect(generalError.text()).toEqual(error);
     });
   });
 });

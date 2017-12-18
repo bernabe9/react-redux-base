@@ -6,7 +6,13 @@ import InputLabel from './InputLabel';
 import InputError from './InputError';
 import InputWrapper from './InputWrapper';
 
-const InputField = ({ input, label, type, placeholder, meta: { touched, error } }) => (
+const InputField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  meta: { touched, error }
+}) => (
   <InputWrapper>
     {label && <InputLabel>{label}</InputLabel>}
     <Input {...input} {...{ placeholder, type }} />
