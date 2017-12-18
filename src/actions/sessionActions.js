@@ -4,21 +4,24 @@ import { sessionService } from 'redux-react-session';
 import sessionApi from '../api/sessionApi';
 
 export const login = user =>
-  () =>
-    sessionApi.login({ user }).then((response) => {
-      sessionService.saveUser(response.user);
-    }).catch((err) => {
+  async () => {
+    try {
+      const res = await sessionApi.login({ user });
+      await sessionService.saveUser(res.user);
+    } catch (err) {
       throw new SubmissionError({
         _error: err.errors[0]
       });
-    });
+    }
+  };
 
 export const logout = () =>
-  () => {
-    sessionApi.logout().then(() => {
+  async () => {
+    try {
+      await sessionApi.logout();
       sessionService.deleteSession();
       sessionService.deleteUser();
-    }).catch((err) => {
+    } catch (err) {
       throw (err);
-    });
+    }
   };

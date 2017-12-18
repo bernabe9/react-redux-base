@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+import 'babel-polyfill';
 import path from 'path';
 import Dotenv from 'dotenv-webpack';
 
@@ -10,6 +11,7 @@ export default {
   },
   devtool: 'eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     // activate HMR for React
 
