@@ -23,6 +23,10 @@
   ```
 4. Start the dev server: `yarn start` or `npm start -s`
 
+## Running scripts with different environments
+To change the set of environment variables for a script it's needed to run ENVIRONMENT=my_environment before the script.
+
+For example: `ENVIRONMENT=staging yarn build`
 
 ## Initial Machine Setup
 **Install [Node 4.0.0 or greater](https://nodejs.org)** - (5.0 or greater is recommended for optimal build performance). Need to run multiple versions of Node? Use [nvm](https://github.com/creationix/nvm).
