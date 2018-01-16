@@ -11,6 +11,9 @@
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
     "start": "npm-run-all --parallel open:src lint:watch",
+    "start:server": "node server/build/server.js",
+    "start:server:local": "babel-node server/index.js",
+    "ssr": "npm run clean-dist && npm run build:client && npm run build:server",
     "open:src": "babel-node tools/srcServer.js",
     "open:dist": "babel-node tools/distServer.js",
     "lint": "esw webpack.config.* src tools --color && npm run lint:scss && npm run lint:styled-components",
@@ -19,9 +22,11 @@
     "lint:watch": "npm run lint -- --watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "rimraf ./dist",
-    "prebuild": "npm run clean-dist && npm run lint && npm run test",
+    "prebuild": "npm run clean-dist",
     "build": "npm run just-build && npm run open:dist",
     "just-build": "babel-node tools/build.js",
+    "build:server": "babel-node server/scripts/buildServer.js",
+    "build:client": "babel-node server/scripts/buildClient.js",
     "test": "jest --setupTestFrameworkScriptFile ./tools/testSetup",
     "test:CI": "node --harmony_proxies node_modules/jest/bin/jest",
     "test:cover": "npm run test -- --coverage",
@@ -34,6 +39,7 @@
   "author": "Bernabe Gonzalez",
   "license": "MIT",
   "dependencies": {
+    "assets-webpack-plugin": "3.5.1",
     "history": "4.7.2",
     "humps": "2.0.1",
     "immutable": "3.8.2",
@@ -42,6 +48,7 @@
     "prop-types": "15.6.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
+    "react-helmet": "5.2.0",
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
     "react-router-redux": "5.0.0-alpha.9",
@@ -52,7 +59,8 @@
     "redux-react-session": "2.2.1",
     "redux-thunk": "2.2.0",
     "styled-components": "2.3.0",
-    "validate.js": "0.11.1"
+    "validate.js": "0.11.1",
+    "webpack-node-externals": "1.6.0"
   },
   "devDependencies": {
     "autoprefixer": "7.2.3",
