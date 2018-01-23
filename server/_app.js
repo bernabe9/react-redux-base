@@ -1,39 +1,36 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { bool } from 'prop-types';
+import { connect } from 'react-redux';
+import { Switch } from 'react-router-dom';
 
-class App extends React.Component {
-  constructor() {
-    super();
+import RouteFromPath from '../src/components/routes/RouteFromPath';
 
-    this.state = {
-      previousLocation: null,
-    };
+const App = ({ authenticated, checked, routes }) => {
+  if (!checked) {
+    return false;
   }
 
-  render() {
-    const { previousLocation } = this.state;
-    const { location, history, match } = this.props;
+  return (
+    <Switch>
+      {routes.map((route, index) =>
+        <RouteFromPath
+          key={`route${index}`}
+          {...route}
+          authenticated={authenticated}
+        />)
+      }
+    </Switch>
+  );
+};
 
-    return (
-      <Switch>
-        {this.props.routes.map((r, i) => (
-          <Route
-            key={`route--${i}`}
-            path={r.path}
-            exact={r.exact}
-            location={previousLocation || location}
-            render={() =>
-              React.createElement(r.component, {
-                history,
-                location: previousLocation || location,
-                match
-              })
-            }
-          />
-        ))}
-      </Switch>
-    );
-  }
-}
+App.propTypes = {
+  authenticated: bool.isRequired,
+  checked: bool.isRequired
+};
 
-export default withRouter(App);
+const mapState = state => ({
+  checked: state.getIn(['session', 'checked']),
+  authenticated: state.getIn(['session', 'authenticated'])
+});
+
+export default connect(mapState)(App);

@@ -3817,13 +3817,9 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
 
-immutable@3.8.2:
+immutable@3.8.2, immutable@^3.8.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
-
-immutable@^3.8.1:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -6277,11 +6273,11 @@ pretty-format@^21.2.1:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
-private@^0.1.6, private@~0.1.5:
+private@^0.1.6:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.7.tgz#68ce5e8a1ef0a23bb570cc28537b5332aba63ef1"
 
-private@^0.1.7:
+private@^0.1.7, private@~0.1.5:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
 
@@ -6755,9 +6751,9 @@ redux-logger@3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-react-session@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/redux-react-session/-/redux-react-session-2.2.1.tgz#63a7b864301dfa2510f33ae137e079bf16ed188d"
+redux-react-session@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-react-session/-/redux-react-session-2.3.0.tgz#c91399d53d94d9f6cc911388b2b71eb9fb4a3bda"
   dependencies:
     immutable "^3.8.1"
     js-cookie "2.1.4"
@@ -7332,7 +7328,7 @@ source-map@0.1.31:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@0.5.6, source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.0, source-map@~0.5.1, source-map@~0.5.3:
+source-map@0.5.6, source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1, source-map@~0.5.3:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
@@ -7351,6 +7347,10 @@ source-map@~0.2.0:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.2.0.tgz#dab73fbcfc2ba819b4de03bd6f6eaa48164b3f9d"
   dependencies:
     amdefine ">=0.0.4"
+
+source-map@~0.5.0:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
 sourcemapped-stacktrace@^1.1.6:
   version "1.1.6"

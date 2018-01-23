@@ -2,7 +2,6 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { sessionService } from 'redux-react-session';
-import { AppContainer } from 'react-hot-loader';
 
 import configureStore from '../src/store/configureStore';
 import App from '../src/components/App';
@@ -12,14 +11,12 @@ require('../src/favicon.ico'); // Tell webpack to load favicon.ico
 
 const store = configureStore();
 
-sessionService.initSessionService(store);
+sessionService.initSessionService(store, { driver: 'COOKIES' });
 
 const renderApp = (Component) => {
   hydrate(
     <Provider store={store}>
-      <AppContainer>
-        <Component />
-      </AppContainer>
+      <Component />
     </Provider>,
     document.getElementById('app')
   );

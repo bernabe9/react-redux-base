@@ -1,4 +1,3 @@
-import path from 'path';
 import React from 'react';
 // import url from 'url';
 import express from 'express';
@@ -6,11 +5,12 @@ import Helmet from 'react-helmet';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { sessionService } from 'redux-react-session';
 
 import App from './_app';
 import routes from './_routes';
 import Doc from './_document';
-import configureStore from '../src/store/configureStore';
+import configureStore from '../src/store/configureStore.prod';
 // import loadInitialProps from './loadInitialProps';
 
 const assets = require('./build/assets.json');
@@ -28,6 +28,13 @@ server
     try {
       const store = configureStore();
       const context = {};
+
+      try {
+        await sessionService.initServerSession(store, req);
+      } catch (err) {
+        console.log(err);
+      }
+
       // const data = await loadInitialProps(routes, url.parse(req.url).pathname, {
       //   req,
       //   res,
@@ -54,10 +61,18 @@ server
         // data: data[0],
       });
 
-      const doc = ReactDOMServer.renderToStaticMarkup(<Doc {...docProps} />);
-      res.send(`<!doctype html> ${doc.replace('SSR_MARKUP', html)}`);
+      // Redirect
+      if (context.url) {
+        res.writeHead(302, {
+          Location: context.url
+        });
+        res.end();
+      } else {
+        const doc = ReactDOMServer.renderToStaticMarkup(<Doc {...docProps} />);
+        res.send(`<!doctype html> ${doc.replace('SSR_MARKUP', html)}`);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.json(error);
     }
   });
