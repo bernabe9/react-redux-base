@@ -10,6 +10,8 @@ import './styles/styles.scss';
 
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 
+process.env.BROWSER = true;
+
 const store = configureStore();
 
 sessionService.initSessionService(store);

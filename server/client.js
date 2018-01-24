@@ -9,6 +9,8 @@ import '../src/styles/styles.scss';
 
 require('../src/favicon.ico'); // Tell webpack to load favicon.ico
 
+process.env.BROWSER = true;
+
 const store = configureStore();
 
 sessionService.initSessionService(store, { driver: 'COOKIES' });

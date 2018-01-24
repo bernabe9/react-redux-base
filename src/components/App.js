@@ -8,7 +8,7 @@ import history from '../utils/history';
 import RouteFromPath from './routes/RouteFromPath';
 import routes from '../routes';
 
-const App = ({ authenticated, checked }) =>(
+const App = ({ authenticated, checked }) => (
   <ConnectedRouter history={history}>
     { checked &&
       <Switch>
