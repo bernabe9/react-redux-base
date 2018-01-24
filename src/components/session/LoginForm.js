@@ -4,9 +4,10 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import InputField from '../common/input/InputField';
 import * as constraints from '../../utils/constraints';
+import '../../styles/other-style.scss';
 
 export const LoginForm = ({ handleSubmit, error }) => (
-  <form onSubmit={handleSubmit}>
+  <form className="login-form" onSubmit={handleSubmit}>
     {error && <strong>{error}</strong>}
     <div>
       <Field

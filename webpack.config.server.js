@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import path from 'path';
 import webpackNodeExternals from 'webpack-node-externals';
+import autoprefixer from 'autoprefixer';
 import 'babel-polyfill';
 
 if (!process.env.ENVIRONMENT) {
@@ -11,6 +12,7 @@ if (!process.env.ENVIRONMENT) {
 const Dotenv = require('dotenv-webpack');
 
 const GLOBALS = {
+  window: {},
   'process.env.NODE_ENV': JSON.stringify('production'),
   'process.env.BROWSER': false,
   __DEV__: false
@@ -33,12 +35,29 @@ export default {
 
     new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
 
+    new ExtractTextPlugin('styles.css'),
+
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+      noInfo: true, // set to false to see a list of every file being bundled.
+      options: {
+        sassLoader: {
+          includePaths: [path.resolve(__dirname, 'src', 'scss')]
+        },
+        context: '/',
+        postcss: () => [autoprefixer],
+      }
+    }),
+
     new Dotenv({
       path: path.resolve(__dirname, `.env.${process.env.ENVIRONMENT}`),
       systemvars: true
     })
   ],
-  externals: [webpackNodeExternals()],
+  externals: [webpackNodeExternals({
+    whitelist: ['actioncable']
+  })],
   module: {
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },

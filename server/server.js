@@ -1,25 +1,20 @@
 import React from 'react';
-// import url from 'url';
 import express from 'express';
 import Helmet from 'react-helmet';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { sessionService } from 'redux-react-session';
+import { matchRoutes } from 'react-router-config';
 
 import App from './_app';
 import routes from './_routes';
 import Doc from './_document';
 import configureStore from '../src/store/configureStore.prod';
-// import loadInitialProps from './loadInitialProps';
 
 const assets = require('./build/assets.json');
 
 const server = express();
-
-// const serverDir = path.join(__dirname);
-
-const modPageFn = Page => props => <Page {...props} />;
 
 server
   .disable('x-powered-by')
@@ -31,48 +26,47 @@ server
 
       try {
         await sessionService.initServerSession(store, req);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
 
-      // const data = await loadInitialProps(routes, url.parse(req.url).pathname, {
-      //   req,
-      //   res,
-      // });
-
-      const renderPage = (fn = modPageFn) => {
-        const staticRouter = (
-          <Provider store={store} key="provider">
-            <StaticRouter location={req.url} context={context}>
-              {fn(App)({ routes })}
-            </StaticRouter>
-          </Provider>
-        );
-        const html = ReactDOMServer.renderToString(staticRouter);
-        const helmet = Helmet.renderStatic();
-        return { html, helmet };
-      };
-
-      const { html, ...docProps } = await Doc.getInitialProps({
-        req,
-        res,
-        assets,
-        renderPage,
-        // data: data[0],
-      });
-
-      // Redirect
-      if (context.url) {
-        res.writeHead(302, {
-          Location: context.url
+      const promises = matchRoutes(routes, req.path)
+        .map(({ route }) => (route.component.loadData ? route.component.loadData(store) : null))
+        .map((promise) => {
+          if (promise) {
+            return new Promise((resolve) => {
+              promise.then(resolve).catch(resolve);
+            });
+          }
         });
-        res.end();
-      } else {
-        const doc = ReactDOMServer.renderToStaticMarkup(<Doc {...docProps} />);
-        res.send(`<!doctype html> ${doc.replace('SSR_MARKUP', html)}`);
-      }
+
+      Promise.all(promises).then(async () => {
+        const renderPage = () => {
+          const staticRouter = (
+            <Provider store={store} key="provider">
+              <StaticRouter location={req.url} context={context}>
+                <App routes={routes} />
+              </StaticRouter>
+            </Provider>
+          );
+          const html = ReactDOMServer.renderToString(staticRouter);
+          const helmet = Helmet.renderStatic();
+          return { html, helmet };
+        };
+
+        const { html, helmet } = renderPage();
+
+        // Redirect
+        if (context.url) {
+          res.writeHead(302, {
+            Location: context.url
+          });
+          res.end();
+        } else {
+          const docProps = { helmet, assets };
+          const doc = ReactDOMServer.renderToStaticMarkup(<Doc {...docProps} />);
+          res.send(`<!doctype html> ${doc.replace('SSR_MARKUP', html)}`);
+        }
+      });
     } catch (error) {
-      console.log(error);
       res.json(error);
     }
   });

@@ -1,6 +1,7 @@
 import HomePage from '../src/containers/HomePage';
 import LoginPage from '../src/containers/LoginPage';
 import SignUpPage from '../src/containers/SignUpPage';
+import PlayersPage from '../src/containers/PlayersPage';
 import NotFoundPage from '../src/containers/NotFoundPage';
 
 const routes = [
@@ -15,6 +16,10 @@ const routes = [
   {
     path: '/sign-up',
     component: SignUpPage
+  },
+  {
+    path: '/players',
+    component: PlayersPage
   },
   {
     component: NotFoundPage

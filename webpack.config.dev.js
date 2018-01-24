@@ -5,6 +5,10 @@ import 'babel-polyfill';
 import path from 'path';
 import Dotenv from 'dotenv-webpack';
 
+if (!process.env.ENVIRONMENT) {
+  process.env.ENVIRONMENT = 'dev';
+}
+
 export default {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json']

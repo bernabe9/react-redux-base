@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import PlayerCard from '../components/PlayerCard';
+import { getPlayers } from '../actions/playerActions';
 
 class PlayersPage extends Component {
-  constructor() {
-    super();
-
-    this.state = { players: [] };
+  static loadData({ dispatch }) {
+    return dispatch(getPlayers());
   }
 
-  componentWillMount() {
-    debugger;
-    const request = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    };
-    const url = 'https://private-9a4624-rootstrapreact.apiary-mock.com/players';
-    fetch(url, request)
-      .then(response =>
-        response.json().then((players) => { this.setState({ players }); }));
+  componentDidMount() {
+    const { getPlayers } = this.props;
+    getPlayers();
   }
 
   render() {
-    const { players } = this.state;
+    const { players } = this.props;
 
     return (
       <div className="players-list">
@@ -34,4 +28,12 @@ class PlayersPage extends Component {
   }
 }
 
-export default PlayersPage;
+const mapState = state => ({
+  players: state.getIn(['player', 'players']).toJS()
+});
+
+const mapDispatch = dispatch => ({
+  getPlayers: () => dispatch(getPlayers())
+});
+
+export default connect(mapState, mapDispatch)(PlayersPage);
