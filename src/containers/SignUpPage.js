@@ -3,8 +3,8 @@ import { func } from 'prop-types';
 import { connect } from 'react-redux';
 
 import SignUpForm from '../components/user/SignUpForm';
-import PageHeading from '../components/common/PageHeading';
-import PageWrapper from '../components/common/PageWrapper';
+import PageHeading from '../components/common/page/PageHeading';
+import PageWrapper from '../components/common/page/PageWrapper';
 import { signUp } from '../actions/signUpActions';
 
 const SignUpPage = ({ signUp }) => (

@@ -3,7 +3,7 @@ import s3 from './s3';
 import path from 'path';
 import dotenv from 'dotenv';
 
-const environment = process.env.ENVIRONMENT || 'prod';
+const environment = process.env.ENV || 'prod';
 dotenv.config({ path: path.resolve(__dirname, `../.env.${environment}`) });
 
 if (environment) {

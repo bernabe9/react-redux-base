@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import LoginForm from '../components/session/LoginForm';
-import PageHeading from '../components/common/PageHeading';
-import PageWrapper from '../components/common/PageWrapper';
+import PageHeading from '../components/common/page/PageHeading';
+import PageWrapper from '../components/common/page/PageWrapper';
 import { login } from '../actions/sessionActions';
 
 const LoginPage = ({ authenticated, login }) => {

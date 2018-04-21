@@ -21,6 +21,7 @@
     "remove-dist": "rimraf ./dist",
     "prebuild": "npm run clean-dist && npm run lint && npm run test",
     "build": "npm run just-build && npm run open:dist",
+    "prejust-build": "npm run clean-dist",
     "just-build": "babel-node tools/build.js",
     "test": "jest --setupTestFrameworkScriptFile ./tools/testSetup",
     "test:CI": "node --harmony_proxies node_modules/jest/bin/jest",
